@@ -1,5 +1,4 @@
 # Projeto-TaskSync
-# TaskSync
 
 TaskSync é um sistema distribuído de gerenciamento de tarefas desenvolvido com Flask no backend e React no frontend. O projeto permite a criação, edição e gerenciamento de tarefas com autenticação JWT, armazenando os dados em um banco de dados relacional.
 
@@ -117,5 +116,3 @@ projeto-tasksync/
 ├── run.py
 └── README.md
 ```
-6. Considerações finais
-Agora você pode acessar a aplicação pelo navegador em http://localhost:5173 e começar a gerenciar suas tarefas com o TaskSync!
