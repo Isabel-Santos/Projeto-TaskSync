@@ -103,7 +103,6 @@ projeto-tasksync/
 │   │   │   └── utils/
 │   │   ├── public/
 │   │   ├── .gitignore
-│   │   ├── vite.config.js
 │   │   ├── README.md
 │   │   ├── .env
 │   │   └── package-lock.json
