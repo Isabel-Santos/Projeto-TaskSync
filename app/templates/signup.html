@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Sign Up</h1>
+        <form id="signupForm">
+            <label for="username">Nome de usuário:</label>
+            <input type="text" id="username" name="username" placeholder="Digite seu nome de usuário" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" placeholder="Digite seu email" required>
+
+            <label for="password">Senha:</label>
+            <input type="password" id="password" name="password" placeholder="Digite sua senha" required>
+
+            <button type="submit">Cadastrar</button>
+        </form>
+
+        <div class="messages">
+            {% with messages = get_flashed_messages(category_filter=["danger", "success", "info"]) %}
+                {% if messages %}
+                    {% for message in messages %}
+                        <p>{{ message }}</p>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        document.getElementById("signupForm").addEventListener("submit", function(event) {
+            event.preventDefault();  
+
+            const username = document.getElementById("username").value;
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+
+            axios.post('/auth/signup', {
+                username: username,
+                email: email,
+                password: password
+            }, {
+                headers: {
+                    'Content-Type': 'application/json'  
+                }
+            })
+            .then(function(response) {
+                console.log('Cadastro bem-sucedido:', response.data);
+                window.location.href = '/';  
+            })
+            .catch(function(error) {
+                console.error('Erro ao cadastrar:', error.response.data);
+                alert(error.response.data.message || 'Erro ao cadastrar');
+            });
+        });
+    </script>
+</body>
+</html>

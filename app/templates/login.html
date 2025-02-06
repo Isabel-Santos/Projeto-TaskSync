@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Login</h1>
+        <form id="loginForm">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" placeholder="Digite seu email" required>
+
+            <label for="password">Senha:</label>
+            <input type="password" id="password" name="password" placeholder="Digite sua senha" required>
+
+            <button type="submit">Entrar</button>
+        </form>
+
+        <div class="messages">
+            {% with messages = get_flashed_messages(category_filter=["danger", "success", "info"]) %}
+                {% if messages %}
+                    {% for message in messages %}
+                        <p>{{ message }}</p>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        document.getElementById("loginForm").addEventListener("submit", function(event) {
+            event.preventDefault();  
+
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+
+            axios.post('/auth/login', {
+                username: email,  
+                password: password
+            }, {
+                headers: {
+                    'Content-Type': 'application/json'  
+                }
+            })
+            .then(function(response) {
+                console.log('Login bem-sucedido:', response.data);
+                window.location.href = '/';  
+            })
+            .catch(function(error) {
+                console.error('Erro ao fazer login:', error.response.data);
+                alert(error.response.data.message || 'Erro ao fazer login');
+            });
+        });
+    </script>
+</body>
+</html>

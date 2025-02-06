@@ -1,0 +1,7 @@
+.env
+__pycache__/
+migrations/
+instance/
+dashboard.html
+estrutura_projeto.txt
+build/
